@@ -24,6 +24,21 @@ The optional `SUBNET_MASK` describes smaller subnets within the network. The scr
 
 If `SUBNET_MASK` is broader than `NETMASK`, the script reports the containing supernet.
 
+## What the output means
+
+- **Address** is the input host or address. Its binary form shows the four IPv4 octets as eight-bit groups.
+- **Netmask** marks which address bits identify the network (`1`) and which identify hosts (`0`). The `/prefix` is the number of leading network bits.
+- **Wildcard** is the bitwise inverse of the netmask. It is commonly used in router access-control rules and also shows which bits can vary within the network.
+- **Network** is the first address in the range, found by applying the netmask to the input address. Its host bits are all zero.
+- **Broadcast** is the last address in an IPv4 subnet, with all host bits set. It is used to address all hosts on that subnet.
+- **HostMin** and **HostMax** are the first and last assignable addresses in a typical subnet. For `/31` and `/32`, the script follows point-to-point and single-address conventions instead of subtracting network and broadcast addresses.
+- **Hosts/Net** is the number of assignable addresses under those conventions: normally the total address count minus the network and broadcast addresses.
+- **Class** is the historical classful category determined by the address's first bits. Modern networks use CIDR prefixes; the class is shown for reference and to explain the default mask when none is supplied.
+- **Private Internet** marks addresses in the RFC 1918 private IPv4 ranges. These addresses are intended for private networks and are not globally routed as public addresses.
+- **Binary columns** display each value as four eight-bit octets. Comparing the address with the netmask makes the network and host bits visible.
+- **Subnets** divide the parent network into smaller networks by using a longer prefix. Each listed range gives the subnet's network address through its final address; the optional selector chooses one of these subnets.
+- **Supernet** combines the input network with neighboring address space by using a shorter prefix.
+
 ## Examples
 
 Calculate a network using a CIDR prefix:
